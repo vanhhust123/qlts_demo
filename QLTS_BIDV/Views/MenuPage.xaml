@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="QLTS_BIDV.Views.MenuPage"
+             NavigationPage.HasNavigationBar="False"
+             >
+    <ContentPage.Content>
+        <Grid>
+            <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Spacing="0">
+                <!--Banner-->
+                <StackLayout HorizontalOptions="FillAndExpand" HeightRequest="50" BackgroundColor="#006969">
+                    <Label Text="Danh sách chức năng" TextColor="White" Margin="20, 0, 0, 0"
+                           FontSize="20" FontAttributes="Bold" VerticalOptions="CenterAndExpand"/>
+                </StackLayout>
+
+                <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="White">
+
+                    <StackLayout VerticalOptions="Start" Padding="0, 150, 0, 0">
+
+                        <!--Chạm để mở màn List-->
+                        <Frame Padding="0" CornerRadius="5" Margin="20, 20, 20, 0">
+                            <StackLayout Padding="20" Orientation="Horizontal" BackgroundColor="#006969" >
+                                <Label Text="Tạo mã QRcode" FontAttributes="Bold" TextColor="White" FontSize="20" HorizontalOptions="FillAndExpand"></Label>
+                                <Label Text="&#xf304;" FontFamily="{StaticResource FontAwesomeSolid}" FontSize="20" TranslationY="5" TextColor="White" 
+                                       FontAttributes="Bold" Grid.Row="2" HorizontalOptions="Start" Grid.Column="1">
+                                    
+                                </Label>
+
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding OpenListPageCommand}"></TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+
+                            </StackLayout>
+                        </Frame>
+
+                        <!--Chạm để mở màn quét mã QR-->
+                        <Frame Padding="0" CornerRadius="5" Margin="20, 10, 20, 0">
+                            <StackLayout Padding="20" Orientation="Horizontal" BackgroundColor="White" >
+                                <Label Text="Quét mã Qrcode" TextColor="#006969" 
+                                       FontAttributes="Bold"
+                                       FontSize="20" HorizontalOptions="StartAndExpand"></Label>
+                                <Image Source="qr.jpg" HeightRequest="30"></Image>
+
+                                
+                                <!--<StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding OpenScanQRCommand}"></TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>-->
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding OpenInventoryListPageCommand}"></TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </Frame>
+
+
+                        <!--Chạm để mở màn danh sách biên bản kiểm kê-->
+                        <Frame Padding="0" CornerRadius="5" Margin="20, 10, 20, 0">
+                            <StackLayout Padding="20" Orientation="Horizontal" BackgroundColor="#006969" >
+                                <Label Text="Danh sách biên bản kiểm kê" FontAttributes="Bold" TextColor="White" FontSize="20" HorizontalOptions="FillAndExpand"></Label>
+                                <Label Text="&#xf03a;" FontFamily="{StaticResource FontAwesomeSolid}" FontSize="20" TranslationY="5" TextColor="White" 
+                                       FontAttributes="Bold" Grid.Row="2" HorizontalOptions="Start" Grid.Column="1">
+
+                                </Label>
+
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding OpenInventoryListDetailPageCommand}"></TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+
+                            </StackLayout>
+                        </Frame>
+                    </StackLayout>
+                    
+
+
+
+
+                </StackLayout>
+
+
+
+            </StackLayout>
+
+
+            <!--Loading-->
+            <StackLayout  IsVisible="{Binding IsBusy.Value}"  BackgroundColor="#60ffffff" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <ActivityIndicator IsRunning="True" IsEnabled="True" 
+                    Color="#006969" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                </ActivityIndicator>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

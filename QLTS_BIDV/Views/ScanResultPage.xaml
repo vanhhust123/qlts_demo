@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="QLTS_BIDV.Views.ScanResultPage"
+             xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+             NavigationPage.HasNavigationBar="False"
+             NavigationPage.BackButtonTitle="Chi tiết"
+             >
+
+
+    <ContentPage.Content>
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="White">
+            <ScrollView VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="White">
+                <StackLayout BackgroundColor="White">
+                    <StackLayout Padding="15" BackgroundColor="#006969">
+                        <Label Text="Chi tiết tài sản" TextColor="White" FontSize="25" FontAttributes="Bold"></Label>
+                    </StackLayout>
+
+                    <!--Các thông tin chi tiết-->
+                    <StackLayout Padding="15, 5, 15, 0">
+                        <!--Mã tài sản-->
+                        <Label Text="Mã tài sản:" TextColor="Black" FontSize="20"></Label>
+                        <Entry Text="{Binding Asset.MaTs}" IsReadOnly="True" TextColor="Black" HeightRequest="50" BackgroundColor="#dbdbdb"/>
+
+                        <!--Tên tài sản-->
+                        <Label Text="Tên tài sản" TextColor="Black" FontSize="20"></Label>
+                        <Entry Text="{Binding Asset.TenTs}" IsReadOnly="True" TextColor="Black" HeightRequest="50" BackgroundColor="#dbdbdb"/>
+
+                        <!--Serial-->
+                        <Label Text="Serial" TextColor="Black" FontSize="20"></Label>
+                        <Entry Text="{Binding Asset.SerialTs}" IsReadOnly="True" TextColor="Black" HeightRequest="50" BackgroundColor="#dbdbdb"/>
+
+                        <!--Loại tài sản-->
+                        <Label Text="Loại tài sản" TextColor="Black" FontSize="20"></Label>
+                        <Entry Text="{Binding Asset.LoaiTs}" IsReadOnly="True" TextColor="Black" HeightRequest="50" BackgroundColor="#dbdbdb"/>
+
+                        <!--Nguyên giá-->
+                        <Label Text="Nguyên giá" TextColor="Black" FontSize="20"></Label>
+                        <Entry Text="{Binding Asset.NguyenGiaTs, Converter={x:StaticResource currencyConverter}, StringFormat='{0} VND'}" IsReadOnly="True" TextColor="Black" HeightRequest="50" BackgroundColor="#dbdbdb"/>
+
+                        <!--Vị trí-->
+                        <Label Text="Vị trí" TextColor="Black" FontSize="20"></Label>
+                        <Entry Text="{Binding Asset.VitriTs}" IsReadOnly="True" TextColor="Black" HeightRequest="50" BackgroundColor="#dbdbdb"/>
+
+                        <!--Mô tả-->
+                        <Label Text="Mô tả" TextColor="Black" FontSize="20"></Label>
+                        <Entry Text="{Binding Asset.MoTaTs}" IsReadOnly="True" TextColor="Black" HeightRequest="50" BackgroundColor="#dbdbdb"/>
+                    </StackLayout>
+                    <Button 
+                        Text="Đối chiếu" Command="{Binding CheckCommand}" HeightRequest="50" TextColor="White" BackgroundColor="#006969" Margin="10"></Button>
+                </StackLayout>
+            </ScrollView>
+
+
+
+            <!--Lựa chọn action quét tiếp hay về trang chủ-->
+            <StackLayout IsVisible="{Binding IsActionChoose.Value}" BackgroundColor="#AAffffff">
+
+                <Frame Padding="0" Margin="20"  BackgroundColor="White" HeightRequest="180" 
+                       CornerRadius="10"
+                       VerticalOptions="CenterAndExpand">
+
+                    <StackLayout BackgroundColor="White" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="10">
+                        <Label Text="Thao tác thành công" TextColor="#006969" FontAttributes="Bold" FontSize="25"></Label>
+                        <Label Text="Chọn thao tác dưới đây" TextColor="Black" FontAttributes="None" FontSize="18" VerticalOptions="FillAndExpand"></Label>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            
+                            <!--Tiếp tục quét-->
+                            <Button Text="Tiếp tục quét" 
+                                    Command="{Binding ContinueScanCommand}"
+                                    TextColor="White" FontAttributes="Bold"
+                                    BackgroundColor="#006969" CornerRadius="5"
+                                    HorizontalOptions="FillAndExpand" Grid.Column="0"></Button>
+                            
+                            <!--Về trang chủ-->
+                            <Button Text="Trang chủ" 
+                                    Command="{Binding GoMenuCommand}"
+                                    TextColor="#006969" FontAttributes="Bold"
+                                    BackgroundColor="#e3e3e3" CornerRadius="5" 
+                                    HorizontalOptions="FillAndExpand" Grid.Column="1"></Button>
+                        </Grid>
+                        
+                    </StackLayout>
+                    
+                </Frame>
+            </StackLayout>
+            
+            
+            <!--Loading-->
+            <StackLayout  IsVisible="{Binding IsBusy.Value}"  BackgroundColor="#60ffffff" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <ActivityIndicator IsRunning="True" IsEnabled="True" Color="#006969" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"></ActivityIndicator>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

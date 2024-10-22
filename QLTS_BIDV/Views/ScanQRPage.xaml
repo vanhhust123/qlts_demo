@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="QLTS_BIDV.Views.ScanQRPage"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+             xmlns:zx="clr-namespace:ZXing;assembly=zxing.portable"
+             xmlns:za="clr-namespace:ZXing.Common;assembly=zxing.portable"
+             xmlns:zb="clr-namespace:ZXing.Mobile;assembly=ZXingNetMobile"
+             xmlns:zc="clr-namespace:ZXing.Mobile;assembly=ZXingNetMobile"
+             >
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Start" HeightRequest="50" BackgroundColor="#006969" Padding="10">
+                <Label Text="Quét tài sản" TextColor="White" FontAttributes="Bold" FontSize="20" VerticalOptions="CenterAndExpand"></Label>
+            </StackLayout>
+            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <zxing:ZXingScannerView x:Name="scannerView" 
+                                HeightRequest="300"
+                                WidthRequest="300"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand"
+                                OnScanResult="scannerView_OnScanResult"
+                                IsScanning="true"
+                                IsAnalyzing="true">
+                    <zxing:ZXingScannerView.Options>
+                        <!--<zc:MobileBarcodeScanningOptions></zc:MobileBarcodeScanningOptions>-->
+                    </zxing:ZXingScannerView.Options>
+                </zxing:ZXingScannerView>
+                
+                
+            </StackLayout>
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

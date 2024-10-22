@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="QLTS_BIDV.Views.InventoryListPage"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
+             >
+    <ContentPage.Content>
+        <Grid x:Name="root">
+            <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="White">
+                <!--Banner-->
+                <StackLayout HorizontalOptions="FillAndExpand" HeightRequest="50" BackgroundColor="#006969">
+                    <Label Text="Danh sách đợt kiểm kê" 
+                           IsVisible="{Binding IsDetail.Value, Converter={x:StaticResource boolRevertingConverter}}"
+                           TextColor="White" Margin="20, 0, 0, 0"
+                           FontSize="20" FontAttributes="Bold" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="Danh sách biên bản kiểm kê"
+                           IsVisible="{Binding IsDetail.Value}"
+                           TextColor="White" Margin="20, 0, 0, 0"
+                           FontSize="20" FontAttributes="Bold" VerticalOptions="CenterAndExpand"/>
+                </StackLayout>
+
+
+                <!--Search-->
+                <StackLayout Orientation="Horizontal" Padding="0, 0, 0, 0">
+                    <Frame Margin="5" Padding="2" BackgroundColor="Black" HorizontalOptions="FillAndExpand">
+                        <StackLayout BackgroundColor="White">
+                            <combobox:SfComboBox 
+                                DataSource="{Binding PeriodSearch}"
+                                HeightRequest="40" x:Name="cbSearch" SelectedItem="{Binding PeriodSelected.Value}" BorderColor="Transparent"
+                                HorizontalOptions="FillAndExpand" IsEditableMode="True" 
+                                MultiSelectMode="None"
+                                AllowFiltering="True"
+                                SuggestionMode="Contains"
+                                >
+                            </combobox:SfComboBox>
+                        </StackLayout>
+                    </Frame>
+                    <Button Text="Tìm kiếm" 
+                            Command="{Binding SearchCommand}"
+                            TextColor="White" BackgroundColor="#006969" Margin="5"></Button>
+                </StackLayout>
+
+
+                <!--Trạng thái-->
+                <StackLayout Orientation="Horizontal">
+                    <!--Trạng thái-->
+                    <Frame Margin="5" Padding="2" HorizontalOptions="FillAndExpand" BackgroundColor="Black">
+                        <combobox:SfComboBox HeightRequest="40" x:Name="cbStatus" 
+                             DataSource="{Binding StatusSearch}" SelectedItem="{Binding StatusSelected.Value}"
+                             BorderColor="Transparent"
+                             BackgroundColor="White"
+                             >
+                        </combobox:SfComboBox>
+                    </Frame>
+                </StackLayout>
+
+
+
+
+                <ScrollView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never">
+                    <StackLayout BindableLayout.ItemsSource="{Binding Inventories}" Padding="10">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Frame Padding="0" Margin="0" BackgroundColor="Gray" HasShadow="True" CornerRadius="5">
+                                    <StackLayout BackgroundColor="White" Padding="5">
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Path=BindingContext.ActionCommand, Source={x:Reference root}}"
+                                  CommandParameter="{Binding .}"
+                                  >
+                                            </TapGestureRecognizer>
+                                        </StackLayout.GestureRecognizers>
+                                        <!--Tên tài sản-->
+                                        <Label Text="{Binding Code, StringFormat='{0}'}" TextColor="Black" FontSize="18" FontAttributes="Bold"></Label>
+                                        <Label Text="{Binding Name, StringFormat='{0}'}" TextColor="Black" FontSize="15" FontAttributes="Bold"></Label>
+                                        <StackLayout Orientation="Horizontal">
+                                            <StackLayout WidthRequest="80" BackgroundColor="White" VerticalOptions="FillAndExpand">
+                                                <Label Text="&#xf0ae;" 
+                                                       TextColor="#006969" FontSize="30"
+                                                       FontFamily="{StaticResource FontAwesomeSolid}" 
+                                                       VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"></Label>
+                                                
+                                            </StackLayout>
+                                            
+                                            <Grid HorizontalOptions="FillAndExpand">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="100"></ColumnDefinition>
+                                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+
+                                                <!--Trạng thái-->
+                                                <Label Text="Trạng thái" Grid.Column="0" TextColor="Gray"></Label>
+                                                <Frame Padding="5, 2, 5, 2" CornerRadius="5" BackgroundColor="{Binding Status, Converter={x:StaticResource inventoryStatusConverter}}" Grid.Column="1"
+                                                       WidthRequest="120"
+                                                       HorizontalOptions="Start">
+                                                    <Label Text="{Binding StatusText}" TextColor="White" FontAttributes="Bold"></Label>
+                                                </Frame>
+
+                                                <!--Năm sản xuất-->
+                                                <Label Text="Kỳ kiểm kê" Grid.Column="0" Grid.Row="1" TextColor="Gray"></Label>
+                                                <Label Text="{Binding Period, StringFormat='Kỳ {0}'}" Grid.Row="1" Grid.Column="1" TextColor="Black"></Label>
+
+                                                <!--Thời hạn-->
+                                                <Label Text="Thời hạn" Grid.Row="2" Grid.Column="0" TextColor="Gray"></Label>
+                                                <Label Text="{Binding PhongBanTs}" Grid.Column="1" Grid.Row="2" TextColor="Black"></Label>
+                                            </Grid>
+                                        </StackLayout>
+
+
+                                    </StackLayout>
+                                </Frame>
+
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+
+                    </StackLayout>
+                </ScrollView>
+
+
+
+
+            </StackLayout>
+
+
+
+
+
+            <!--Loading-->
+            <StackLayout  IsVisible="{Binding IsBusy.Value}"  BackgroundColor="#AAeeeeee" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <ActivityIndicator IsRunning="True" IsEnabled="True" 
+                        Color="#006969" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                </ActivityIndicator>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

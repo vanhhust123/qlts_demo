@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="QLTS_BIDV.Views.LoginPage"
+             xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+             >
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="White" Padding="10">
+            <Grid>
+
+                <!--Content-->
+                <ScrollView VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never">
+                    <StackLayout HeightRequest="800">
+                        <!--Text đăng nhập-->
+                        <Label Text="Đăng nhập" 
+            FontSize="25" TextColor="Black"
+            VerticalOptions="Start" FontAttributes="Bold"
+            HorizontalOptions="Start" />
+
+                        <!--Logo BIDV-->
+                        <Image Source="bidv.jpg" HeightRequest="200" BackgroundColor="White"></Image>
+
+                        <!--Username-->
+                        <inputLayout:SfTextInputLayout Hint="Tên đăng nhập">
+                            <Entry Text="{Binding UserName.Value}" TextColor="Black"/>
+                        </inputLayout:SfTextInputLayout>
+
+                        <inputLayout:SfTextInputLayout Hint="Mật khẩu" EnablePasswordVisibilityToggle="true">
+                            <Entry Text="{Binding Password.Value}" TextColor="Black" IsPassword="True" />
+                        </inputLayout:SfTextInputLayout>
+
+                        <Button Text="Đăng nhập" 
+                                Command="{Binding LoginCommand}"
+                                BackgroundColor="#006969" TextColor="White"></Button>
+                    </StackLayout>
+                </ScrollView>
+
+                
+                <!--Loading-->
+                <StackLayout  IsVisible="{Binding IsBusy.Value}"  BackgroundColor="#60ffffff" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                    <ActivityIndicator IsRunning="True" IsEnabled="True" 
+                                       Color="#006969" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"></ActivityIndicator>
+                </StackLayout>
+
+            </Grid>
+            
+            
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

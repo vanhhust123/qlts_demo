@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="QLTS_BIDV.Views.DetailPage"
+             xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+             NavigationPage.HasNavigationBar="False"
+             NavigationPage.BackButtonTitle="Chi tiết">
+    <ContentPage.Content>
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="White" x:Name="abc">
+            <ScrollView HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="White">
+                <StackLayout BackgroundColor="White">
+                    <StackLayout Padding="15" BackgroundColor="#006969">
+                        <Label Text="Chi tiết tài sản" TextColor="White" FontSize="25" FontAttributes="Bold"></Label>
+                    </StackLayout>
+
+                    <!--Các thông tin chi tiết-->
+                    <StackLayout Padding="15, 5, 15, 0">
+                        <!--Mã tài sản-->
+                        <Label Text="Mã tài sản:" TextColor="Black" FontSize="20"></Label>
+                        <Entry Text="{Binding Asset.MaTs}" IsReadOnly="True" TextColor="Black" HeightRequest="50" BackgroundColor="#dbdbdb"/>
+
+                        <!--Tên tài sản-->
+                        <Label Text="Tên tài sản" TextColor="Black" FontSize="20"></Label>
+                        <Entry Text="{Binding Asset.TenTs}" IsReadOnly="True" TextColor="Black" HeightRequest="50" BackgroundColor="#dbdbdb"/>
+
+                        <!--Serial-->
+                        <Label Text="Serial" TextColor="Black" FontSize="20"></Label>
+                        <Entry Text="{Binding Asset.SerialTs}" IsReadOnly="True" TextColor="Black" HeightRequest="50" BackgroundColor="#dbdbdb"/>
+
+                        <!--Loại tài sản-->
+                        <Label Text="Loại tài sản" TextColor="Black" FontSize="20"></Label>
+                        <Entry Text="{Binding Asset.LoaiTs}" IsReadOnly="True" TextColor="Black" HeightRequest="50" BackgroundColor="#dbdbdb"/>
+
+                        <!--Nguyên giá-->
+                        <Label Text="Nguyên giá" TextColor="Black" FontSize="20"></Label>
+                        <Entry Text="{Binding Asset.NguyenGiaTs, Converter={x:StaticResource currencyConverter}, StringFormat='{0} VND'}" IsReadOnly="True" TextColor="Black" HeightRequest="50" BackgroundColor="#dbdbdb"/>
+                        
+                        <!--Vị trí-->
+                        <Label Text="Vị trí" TextColor="Black" FontSize="20"></Label>
+                        <Entry Text="{Binding Asset.VitriTs}" IsReadOnly="True" TextColor="Black" HeightRequest="50" BackgroundColor="#dbdbdb"/>
+                        
+                        <!--Mô tả-->
+                        <Label Text="Mô tả" TextColor="Black" FontSize="20"></Label>
+                        <Entry Text="{Binding Asset.MoTaTs}" IsReadOnly="True" TextColor="Black" HeightRequest="50" BackgroundColor="#dbdbdb"/>
+                    </StackLayout>
+                    <Button Command="{Binding OpenQRPageCommand}" Text="Tạo mã QR từ tài sản này" HeightRequest="50" TextColor="White" BackgroundColor="#006969" Margin="10"></Button>
+                </StackLayout>
+            </ScrollView>
+            
+            <!--Loading-->
+            <StackLayout  IsVisible="{Binding IsBusy.Value}"  BackgroundColor="#60ffffff" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <ActivityIndicator IsRunning="True" IsEnabled="True" Color="#006969" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"></ActivityIndicator>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

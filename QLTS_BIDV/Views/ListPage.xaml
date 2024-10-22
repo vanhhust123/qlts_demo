@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=netstandard"
+             x:Class="QLTS_BIDV.Views.ListPage"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms">
+    <ContentPage.Content>
+        <Grid x:Name="root">
+            <!--Content-->
+            <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="White">
+                
+                <!--Banner-->
+                <StackLayout HorizontalOptions="FillAndExpand" HeightRequest="50" BackgroundColor="#006969">
+                    <Label Text="Danh sách tài sản" TextColor="White" Margin="20, 0, 0, 0"
+                           FontSize="20" FontAttributes="Bold" VerticalOptions="CenterAndExpand"/>
+                </StackLayout>
+                
+                <!--Search-->
+                <StackLayout Orientation="Horizontal" Padding="0, 0, 0, 0">
+                    <Frame Margin="5" Padding="2" BackgroundColor="Black" HorizontalOptions="FillAndExpand">
+                        <StackLayout BackgroundColor="White">
+                            <combobox:SfComboBox 
+                                DataSource="{Binding AssetSearch}"
+                                HeightRequest="40" x:Name="cbSearch" SelectedItem="{Binding AssetSelected.Value}" BorderColor="Transparent"
+                                HorizontalOptions="FillAndExpand" IsEditableMode="True" 
+                                MultiSelectMode="None"
+                                AllowFiltering="True"
+                                SuggestionMode="Contains"
+                                >
+                               
+                            </combobox:SfComboBox>
+                        </StackLayout>
+                    </Frame>
+                    
+                    
+                   
+                    <!--Search-->
+                    <Button Text="Tìm kiếm" 
+                            Command="{Binding SearchCommand}"
+                            TextColor="White" BackgroundColor="#006969" Margin="5"></Button>
+                </StackLayout>
+                
+                
+
+                
+                <!--Phòng ban/ Người sử dụng-->
+                <StackLayout Orientation="Horizontal">
+                    <!--Phòng ban-->
+                    <Frame Margin="5" Padding="2" HorizontalOptions="FillAndExpand" BackgroundColor="Black">
+                        <combobox:SfComboBox HeightRequest="40" x:Name="cbDepartment" 
+                             DataSource="{Binding Departments}" SelectedItem="{Binding DepartmentSelected.Value}"
+                             BorderColor="Transparent"
+                             BackgroundColor="White"
+                             >
+                            <!--<combobox:SfComboBox.ComboBoxSource>
+                                <ListCollection:List x:TypeArguments="x:String">
+                                    <x:String>Phòng ban</x:String>
+                                    <x:String>Phòng A</x:String>
+                                    <x:String>Phòng B</x:String>
+                                    <x:String>Phòng C</x:String>
+                                </ListCollection:List>
+                            </combobox:SfComboBox.ComboBoxSource>-->
+                        </combobox:SfComboBox>
+                    </Frame>
+                    
+                    <!--Người sử dụng-->
+                    <Frame Margin="5" Padding="2" HorizontalOptions="Fill" BackgroundColor="Black">
+                        <combobox:SfComboBox HeightRequest="40" x:Name="cbUser" SelectedValue="Người sử dụng" BorderColor="Transparent"
+                             BackgroundColor="White"
+                        >
+                            <combobox:SfComboBox.ComboBoxSource>
+                                <ListCollection:List x:TypeArguments="x:String">
+                                    <x:String>Người sử dụng</x:String>
+                                    <x:String>Người 1</x:String>
+                                    <x:String>Người 2</x:String>
+                                    <x:String>Người 3</x:String>
+                                    <x:String>Người 4</x:String>
+                                </ListCollection:List>
+                            </combobox:SfComboBox.ComboBoxSource>
+                        </combobox:SfComboBox>
+                    </Frame>
+                </StackLayout>
+
+                
+                <!--Search-->
+                <!--<Button Text="Tìm kiếm" TextColor="White" BackgroundColor="#006969" Margin="5"></Button>-->
+                <!--<Button Text="&#xf304;" FontFamily="{StaticResource FontAwesomeSolid}" TextColor="White" BackgroundColor="#006969" Margin="5"></Button>-->
+                
+                
+                
+                <!--List tài sản-->
+                <ScrollView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                    <StackLayout Padding="10" BindableLayout.ItemsSource="{Binding Assetss}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Frame Padding="0" Margin="0" BackgroundColor="Gray" HasShadow="True" CornerRadius="5">
+                                    <StackLayout BackgroundColor="White" Padding="5">
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Path=BindingContext.OpenDetailPage, Source={x:Reference root}}"
+                                                                  CommandParameter="{Binding .}"
+                                                                  >
+                                            </TapGestureRecognizer>
+                                        </StackLayout.GestureRecognizers>
+                                        <!--Tên tài sản-->
+                                        <Label Text="{Binding TenTs}" TextColor="Black" FontSize="18" FontAttributes="Bold"></Label>
+                                        <StackLayout>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="100"></ColumnDefinition>
+                                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+
+                                                <!--Mã TS-->
+                                                <Label Text="Mã TS" Grid.Column="0" TextColor="Gray"></Label>
+                                                <Label Text="{Binding MaTs}" Grid.Column="1" TextColor="Black"></Label>
+
+                                                <!--Năm sản xuất-->
+                                                <Label Text="Năm SX" Grid.Column="0" Grid.Row="1" 
+                                               TextColor="Gray"></Label>
+                                                <Label Text="{Binding NamSx}" Grid.Row="1" Grid.Column="1" 
+                                               TextColor="Black"></Label>
+
+                                                <!--ĐV quản lý-->
+                                                <Label Text="ĐV quản lý" Grid.Row="2" Grid.Column="0" TextColor="Gray"></Label>
+                                                <Label Text="{Binding PhongBanTs}" Grid.Column="1" Grid.Row="2"
+                                               TextColor="Black"></Label>
+                                            </Grid>
+                                        </StackLayout>
+
+                                        <StackLayout Orientation="Horizontal">
+                                            <Frame IsVisible="{Binding IsActive}" Padding="0" CornerRadius="2" BackgroundColor="Gray">
+                                                <StackLayout BackgroundColor="Blue" Padding="2">
+                                                    <Label Text="Đang sử dụng" TextColor="White" BackgroundColor="Blue"></Label>
+                                                </StackLayout>
+                                            </Frame>
+
+                                            <Frame IsVisible="{Binding IsActive, Converter={StaticResource boolRevertingConverter}}" Padding="0" CornerRadius="2" BackgroundColor="Gray">
+                                                <StackLayout BackgroundColor="Red" Padding="2">
+                                                    <Label Text="Ngưng hoạt động" TextColor="White" BackgroundColor="Red"></Label>
+                                                </StackLayout>
+                                            </Frame>
+
+
+                                            <Frame IsVisible="{Binding IsCheckStatus}" Padding="0" CornerRadius="2" BackgroundColor="Gray">
+                                                <StackLayout BackgroundColor="Blue" Padding="2">
+                                                    <Label Text="Không cần kiểm kê" TextColor="White" BackgroundColor="Blue"></Label>
+                                                </StackLayout>
+                                            </Frame>
+
+
+                                            <Frame IsVisible="{Binding IsCheckStatus, Converter={StaticResource boolRevertingConverter}}" Padding="0" CornerRadius="2" BackgroundColor="Gray">
+                                                <StackLayout BackgroundColor="Orange" Padding="2">
+                                                    <Label Text="Cần kiểm kê" TextColor="White" BackgroundColor="Orange"></Label>
+                                                </StackLayout>
+                                            </Frame>
+
+                                        </StackLayout>
+
+                                    </StackLayout>
+                                </Frame>
+
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+
+
+
+                        
+
+                    </StackLayout>
+                </ScrollView>
+            </StackLayout>
+
+
+
+            <!--Loading-->
+            <StackLayout  IsVisible="{Binding IsBusy.Value}"  BackgroundColor="#60ffffff" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <ActivityIndicator IsRunning="True" IsEnabled="True" 
+                       Color="#006969" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"></ActivityIndicator>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
